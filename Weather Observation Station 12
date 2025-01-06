@@ -1,0 +1,8 @@
+# Query the list of CITY names from STATION that do not start with vowels and do not end with vowels.
+
+select city 
+from (
+ select distinct city from station 
+ where city not rlike '^[aeiou]'
+ ) as f_table
+ where city not rlike '[aeiou]$';
