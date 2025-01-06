@@ -1,0 +1,10 @@
+# Write a query to find the node type of Binary Tree ordered by the value of the node. 
+
+select N, 
+case 
+    when P is null then 'Root'
+    when N in (select distinct(P) from BST where P is not null) then 'Inner'
+    else 'Leaf' 
+end  
+from BST
+order by N;
