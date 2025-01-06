@@ -1,0 +1,7 @@
+# Query the two cities in STATION with the shortest and longest CITY names, as well as their respective lengths .
+
+(select city, length(city) as n_city
+from station order by n_city, city limit 1)
+union all 
+(select city, length(city) as n_city
+from station order by n_city desc, city limit 1);
