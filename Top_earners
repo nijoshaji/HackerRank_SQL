@@ -1,0 +1,8 @@
+# Write a query to find the maximum total earnings for all employees as well as the total number of employees who have maximum total earnings.
+# query a list of total earnings and number of employees grouped by total earnings. the order by total earning and limit to 1.
+
+
+select (months*salary) as earnings, count(*) as n_e
+from employee 
+group by earnings
+order by earnings desc limit 1;
