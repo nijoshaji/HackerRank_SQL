@@ -1,0 +1,11 @@
+# Query the median of the Northern Latitudes (LAT_N) from STATION
+# using row_number method
+
+with ranked_list as(
+select lat_n, row_number() over(order by lat_n) as row_num,
+count(*) over() as total_rows
+    from station
+)
+select round(lat_n,4) from ranked_list
+where row_num = (floor((total_rows +1)/2) + ceil((total_rows +1)/2))/2
+;
