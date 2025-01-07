@@ -1,0 +1,10 @@
+# Name, Grade and Mark. 
+#Ketty doesn't want the NAMES of those students who received a grade lower than 8. The report must be in descending order by grade -- i.e. higher grades are entered first.
+
+select 
+case when grade >= 8 then name
+else null end as student_name,  grade, marks
+from
+(select  name, marks, ceil(marks/10) as grade
+from Students  ) as t1
+order by grade desc, name, marks;
