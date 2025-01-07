@@ -1,0 +1,6 @@
+# finding the difference between her miscalculation (using salaries with any zeros removed), and the actual average salary.
+# Write a query calculating the amount of error.
+# use replace function to replace all 0s with ''
+
+select ceil(avg(salary) - avg(replace(salary,'0',''))) as diff_val
+from employees;
