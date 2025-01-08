@@ -1,0 +1,19 @@
+#  Write a query to print the hacker_id, name, and the total number of challenges created by each student. 
+# Sort your results by the total number of challenges in descending order. 
+# If more than one student created the same number of challenges, then sort the result by hacker_id.
+# If more than one student created the same number of challenges and the count is less than the maximum number of challenges created, then exclude those students from the result.
+# solution: the solutions needs the max count and then unique count values (appearing only once, no repetition)
+
+
+with ranked_list as (
+    select h.hacker_id as id, h.name as name, count(c.challenge_id) as c_count,
+    rank() over (order by count(c.challenge_id) desc) as c_rank,
+    count(*) over (partition by count(*)) as counter
+    from hackers h join challenges c
+    on h.hacker_id = c.hacker_id
+    group by h.hacker_id, h.name
+)
+select id, name, c_count
+from ranked_list
+where c_rank = 1 or counter = 1
+order by c_count desc, id;
