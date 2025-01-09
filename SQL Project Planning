@@ -1,0 +1,13 @@
+# Write a query to output the start and end dates of projects listed by the number of days it took to complete the project in ascending order.
+# divide the table into groups based on end date. by subtracting row number from end date all same projects will have same end date.
+
+
+with grouped_list as (
+    select Start_Date, End_Date,
+    timestampadd(day,- row_number() over(order by end_date),End_Date) as project_numb
+    from Projects
+)
+Select min(Start_Date), max(End_Date)
+from grouped_list
+group by project_numb
+order by (max(End_Date)- min(Start_Date)), min(Start_Date);
