@@ -1,0 +1,12 @@
+# quarterly sum of transaction volumes grouped by algorithm
+
+select c.algorithm, 
+round(sum(case when quarter(t.dt)= 1 then t.volume end),6) as q1_vol,
+round(sum(case when quarter(t.dt)= 2 then t.volume end),6) as q2_vol,
+round(sum(case when quarter(t.dt)= 3 then t.volume end),6) as q3_vol,
+round(sum(case when quarter(t.dt)= 4 then t.volume end),6) as q4_vol
+from coins c
+join transactions t on c.code = t.coin_code
+where year(t.dt) = 2020
+group by c.algorithm
+order by c.algorithm;
